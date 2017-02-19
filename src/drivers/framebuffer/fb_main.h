@@ -1,1 +1,1 @@
-extern int fb_main(unsigned int i, char c, unsigned char fg, unsigned char bg)
+extern int fb_write(unsigned int i, char c, unsigned char fg, unsigned char bg);
