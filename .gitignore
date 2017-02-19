@@ -1,0 +1,3 @@
+kernel.elf
+src/*.o
+iso/boot/kernel.elf
