@@ -4,7 +4,7 @@ CSRCS = $(COBJ:%.o=%.c)
 
 all: compile driver
 	
-driver: $(OBJECTS)
+driver:
 	rm -rf framebuffer.o
 	ld -r -melf_i386 *.o -o framebuffer.o
 
