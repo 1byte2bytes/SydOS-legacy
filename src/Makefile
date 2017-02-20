@@ -2,7 +2,7 @@ AFLAGS = -f elf32
 ASMOBJ = loader.s
 ASMSRCS = $(ASMOBJ:%.o=%.s)
 
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
+CFLAGS = -ggdb -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
 COBJ = main.c
 CSRCS = $(COBJ:%.o=%.c)
 
