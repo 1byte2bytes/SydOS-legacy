@@ -4,7 +4,7 @@ ASMSRCS = $(ASMOBJ:%.o=%.s)
 all: compile driver
 	
 driver:
-	rm -rf framebuffer.o
+	rm -rf basic_io.o
 	ld -r -melf_i386 *.o -o basic_io.o
 
 
