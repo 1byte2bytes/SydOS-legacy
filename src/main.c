@@ -1,4 +1,5 @@
 #include "drivers/framebuffer/fb_main.h"
+#include "drivers/serial/serial_main.h"
 #include "logging/logging.h"
 
 #if defined(__cplusplus)
@@ -6,9 +7,12 @@ extern "C" /* Use C linkage for kernel_main. */
 #endif
 void kern_main(void) {
     fb_write_char(0, 'S', 0, 15);
-    log_info("Logging works!");
-    log_warn("This is a warning");
-    log_fatal("Looks like the kernel ran out of stuff to do!");
+    serial_configure_baud_rate(SERIAL_COM1_BASE, 3);
+    log_info("Serial port configured");
+    serial_configure_line(SERIAL_COM1_BASE);
+    log_info("Serial line configured");
+    serial_send_byte(SERIAL_COM1_BASE, 'h');
+    log_info("Sent test data");
     while(1==1) {
 
     }
