@@ -1,18 +1,19 @@
-global loader
-
-extern kern_main
-
-MAGIC_NUMBER equ 0x1BADB002
-FLAGS        equ 0x0
-CHECKSUM     equ -MAGIC_NUMBER
-
-KERNEL_STACK_SIZE equ 4096
-
-section .text:
+MBALIGN  equ  1<<0
+MEMINFO  equ  1<<1
+FLAGS    equ  MBALIGN | MEMINFO
+MAGIC    equ  0x1BADB002
+CHECKSUM equ -(MAGIC + FLAGS)
+ 
+section .multiboot
 align 4
-    dd MAGIC_NUMBER
-    dd FLAGS
-    dd CHECKSUM
+	dd MAGIC
+	dd FLAGS
+	dd CHECKSUM
+
+section .text
+global loader
+extern kern_main
+KERNEL_STACK_SIZE equ 4096
 
 loader:
     mov eax, 0xCAFEBABE
