@@ -11,5 +11,6 @@
 void serial_configure_baud_rate(unsigned short com, unsigned short divisor);
 void serial_configure_line(unsigned short com);
 void serial_send_byte(unsigned int com, char byte);
+void serial_write(unsigned int com, const char* str);
 
 #endif

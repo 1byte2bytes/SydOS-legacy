@@ -13,6 +13,8 @@ void kern_main(void) {
     log_info("Serial line configured");
     serial_send_byte(SERIAL_COM1_BASE, 'h');
     log_info("Sent test data");
+    serial_write(SERIAL_COM1_BASE, "Hello!");
+    log_info("Sent test string");
     while(1==1) {
 
     }

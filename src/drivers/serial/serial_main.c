@@ -56,3 +56,17 @@ void serial_send_byte(unsigned int com, char byte) {
 
     outb(SERIAL_DATA_PORT(com), byte);
 }
+
+/** serial_write:
+ *  Writes a string of data to the serial port
+ *
+ *  @param com The serial port to send the data over
+ *  @param str The string of data to send
+ */
+void serial_write(unsigned int com, const char* str) {
+    int len = 0;
+    while(str[len]){
+        serial_send_byte(com, str[len]);
+        len++;
+    }
+}
