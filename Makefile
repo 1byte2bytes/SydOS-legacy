@@ -3,22 +3,18 @@ FILES = $(shell ls temp/*.o)
 all:
 	rm -rf temp
 	mkdir temp
-	make c
 	make assembly
 
 assembly: 
 	cd src/ && make
 	cp -v src/*.o temp/
-	cd src/drivers/basic_io/ && make
-	cp -v src/drivers/basic_io/basic_io.o temp/
+	
+	cd src/drivers && make
+
 	mv temp/loader.o temp/1_loader.o #temporary hack to make stuff work
 	ld -T src/link.ld -melf_i386 $$(ls temp/*.o) -o kernel.elf
 
-c:
-	cd src/drivers/framebuffer && make
-	cp src/drivers/framebuffer/framebuffer.o temp/framebuffer.o
-
-.PHONY: iso all assembly c
+.PHONY: iso all assembly
 
 iso:
 	make all
