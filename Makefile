@@ -9,6 +9,8 @@ all:
 assembly: 
 	cd src/ && make
 	cp -v src/*.o temp/
+	cd src/drivers/basic_io/ && make
+	cp -v src/drivers/basic_io/basic_io.o temp/
 	mv temp/loader.o temp/1_loader.o #temporary hack to make stuff work
 	ld -T src/link.ld -melf_i386 $$(ls temp/*.o) -o kernel.elf
 
