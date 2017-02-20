@@ -1,4 +1,4 @@
-DRIVERS = basic_io framebuffer
+DRIVERS = basic_io framebuffer serial
 
 all: $(DRIVERS)
 
@@ -11,3 +11,7 @@ basic_io:
 framebuffer:
 	cd framebuffer && make
 	cp -v framebuffer/framebuffer.o ../../temp
+
+serial:
+	cd serial && make
+	cp -v serial/serial.o ../../temp
