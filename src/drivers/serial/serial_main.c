@@ -1,11 +1,5 @@
 #include "../basic_io/io.h"
-
-#define SERIAL_COM1_BASE                0x3F8
-#define SERIAL_DATA_PORT(base)          (base)
-#define SERIAL_FIFO_COMMAND_PORT(base)  (base + 2)
-#define SERIAL_LINE_COMMAND_PORT(base)  (base + 3)
-#define SERIAL_MODEM_COMMAND_PORT(base) (base + 4)
-#define SERIAL_LINE_STATUS_PORT(base)   (base + 5)
+#include "serial_main.h"
 
 /** SERIAL_LINE_ENABLE_DLAB:
  *  Tells the serial port to expect the highest 8 bits first,
@@ -49,4 +43,16 @@ void serial_configure_line(unsigned short com) {
  */
 int serial_is_transmit_fifo_empty(unsigned int com) {
     return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
+}
+
+/** serial_send_byte:
+ *  Sends a byte over the specified serial port
+ *  
+ *  @param com The serial port to send the byte over
+ *  @param byte The byte to send, usually a letter
+ */
+void serial_send_byte(unsigned int com, char byte) {
+    while (serial_is_transmit_fifo_empty(com) == 0);
+
+    outb(SERIAL_DATA_PORT(com), byte);
 }
