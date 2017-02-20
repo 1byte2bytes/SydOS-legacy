@@ -18,6 +18,8 @@ loader:
     mov eax, 0xCAFEBABE
     mov esp, kernel_stack + KERNEL_STACK_SIZE
     call kern_main
+    cli
+    hlt
 .loop:
     jmp .loop
 
