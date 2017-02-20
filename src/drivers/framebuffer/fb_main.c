@@ -3,12 +3,16 @@
 void fb_move_cursor(unsigned short pos);
 
 char* fb_text_buffer = (char*)0x000B8000;
-int index = 0;
 
 #define FB_COMMAND_PORT      0x3D4
 #define FB_DATA_PORT         0x3D5
 #define FB_HIGH_BYTE_COMMAND 14
 #define FB_LOW_BYTE_COMMAND  15
+
+int fb_console_width_total = 80;
+int fb_console_height_total = 25;
+int fb_console_x = 0;
+int fb_console_y = 0;
 
 int strlen(const char* str) {
     int len = 0;
@@ -34,9 +38,16 @@ void fb_write_char(unsigned int i, char c, unsigned char fg, unsigned char bg) {
 void fb_write(const char* string) {
     int size = strlen(string);
     for (int i = 0; i < size; i++) {
-        fb_write_char(index*2, string[i], 0, 15);
-        index++;
+        if(string[i] == '\n') {
+            fb_console_y++;
+            fb_console_x = 0;
+        } else {
+            int index = fb_console_y * fb_console_width_total + fb_console_x;
+            fb_write_char(index*2, string[i], 0, 15);
+            fb_console_x++;
+        }
     }
+    int index = fb_console_y * fb_console_width_total + fb_console_x;
     fb_move_cursor(index);
 }
 
