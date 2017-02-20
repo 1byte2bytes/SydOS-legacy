@@ -42,6 +42,10 @@ void fb_write(const char* string) {
             fb_console_y++;
             fb_console_x = 0;
         } else {
+            if(fb_console_x == fb_console_width_total) {
+                fb_console_y++;
+                fb_console_x = 0;
+            }
             int index = fb_console_y * fb_console_width_total + fb_console_x;
             fb_write_char(index*2, string[i], 0, 15);
             fb_console_x++;
